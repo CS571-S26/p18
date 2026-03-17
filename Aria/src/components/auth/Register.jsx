@@ -1,0 +1,1 @@
+// Prompts the user to pick between student and teacher registration
