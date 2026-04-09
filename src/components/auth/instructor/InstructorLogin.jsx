@@ -2,9 +2,12 @@ import { useState, useRef } from 'react';
 import { Container, Row, Col, Card, Button, Form, Alert } from 'react-bootstrap';
 import { useNavigate, Link } from 'react-router-dom';
 
-export default function StudentLogin() {
+export default function InstructorLogin() {
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const [degree, setDegree] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -17,7 +20,7 @@ export default function StudentLogin() {
         }
     };
 
-    // Handle student login
+    // Handle instructor login
     const handleLogin = async (e) => {
         e.preventDefault();
         setError('');
@@ -25,7 +28,7 @@ export default function StudentLogin() {
 
         try {
             // Validate form
-            if (!email || !password) {
+            if (!name || !email || !degree || !password || !confirmPassword) {
                 setError('Please fill in all fields');
                 scrollToTop();
                 setLoading(false);
@@ -41,7 +44,7 @@ export default function StudentLogin() {
                 return;
             }
 
-            // Validate password length
+            // Password validation
             if (password.length < 6) {
                 setError('Password must be at least 6 characters');
                 scrollToTop();
@@ -49,14 +52,24 @@ export default function StudentLogin() {
                 return;
             }
 
-            // Simulate student login API call
-            const response = await fetch('/api/student/login', {
+            // Password match validation
+            if (password !== confirmPassword) {
+                setError('Passwords do not match');
+                scrollToTop();
+                setLoading(false);
+                return;
+            }
+
+            // Simulate instructor login API call
+            const response = await fetch('/api/instructor/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
+                    name,
                     email,
+                    degree,
                     password,
                 }),
             });
@@ -68,14 +81,14 @@ export default function StudentLogin() {
 
             const data = await response.json();
 
-            // Store auth token and student info in localStorage
+            // Store auth token and instructor info in localStorage
             localStorage.setItem('authToken', data.token);
-            localStorage.setItem('userType', 'student');
-            localStorage.setItem('studentId', data.studentId);
-            localStorage.setItem('studentName', data.name);
+            localStorage.setItem('userType', 'instructor');
+            localStorage.setItem('instructorId', data.instructorId);
+            localStorage.setItem('instructorName', data.name);
 
-            // Redirect to student dashboard
-            navigate('/student/dashboard');
+            // Redirect to instructor dashboard
+            navigate('/instructor/dashboard');
         } catch (err) {
             setError(err.message || 'An error occurred during login');
             scrollToTop();
@@ -92,12 +105,12 @@ export default function StudentLogin() {
                     <Card className="shadow-lg">
                         <Card.Body className="p-5">
                             <div className="text-center mb-5">
-                                <h2 className="mb-2">Student Login</h2>
-                                <p className="text-muted">Access your learning dashboard</p>
+                                <h2 className="mb-2">Instructor Login</h2>
+                                <p className="text-muted">Manage your lessons and students</p>
                             </div>
 
                             {error && (
-                                <Alert ref={alertRef} variant="danger" dismissible onClose={() => setError('')} tabIndex="-1">
+                                <Alert variant="danger" dismissible onClose={() => setError('')}>
                                     {error}
                                 </Alert>
                             )}
@@ -131,7 +144,7 @@ export default function StudentLogin() {
                                 </Form.Group>
 
                                 <Button
-                                    variant="primary"
+                                    variant="success"
                                     type="submit"
                                     className="w-100 py-2 fw-bold"
                                     disabled={loading}
@@ -144,13 +157,13 @@ export default function StudentLogin() {
                             <div className="text-center mt-4">
                                 <p className="text-muted mb-3">
                                     Don't have an account?{' '}
-                                    <Link to="/student/register" className="text-decoration-none">
-                                        Register as a student
+                                    <Link to="/instructor/register" className="text-decoration-none">
+                                        Register as an instructor
                                     </Link>
                                 </p>
                                 <p className="text-muted">
-                                    <Link to="/student" className="text-decoration-none small">
-                                        ← Back to student options
+                                    <Link to="/instructor" className="text-decoration-none small">
+                                        ← Back to instructor options
                                     </Link>
                                 </p>
                             </div>

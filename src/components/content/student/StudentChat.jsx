@@ -1,2 +1,2 @@
-// Chat with your teacher(s?)
+// Chat with your instructor(s?)
 // Optionally use via email?

@@ -1,1 +1,0 @@
-// Discover teachers - search by area, level, price, etc

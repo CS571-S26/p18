@@ -2,13 +2,13 @@ import { useState, useRef } from 'react';
 import { Container, Row, Col, Card, Button, Form, Alert } from 'react-bootstrap';
 import { useNavigate, Link } from 'react-router-dom';
 
-export default function StudentRegister() {
+export default function InstructorRegister() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [grade, setGrade] = useState('');
+    const [degree, setDegree] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -21,7 +21,7 @@ export default function StudentRegister() {
         }
     };
 
-    // Handle student registration
+    // Handle instructor registration
     const handleRegister = async (e) => {
         e.preventDefault();
         setError('');
@@ -29,7 +29,7 @@ export default function StudentRegister() {
 
         try {
             // Validate form
-            if (!firstName || !lastName || !email || !password || !confirmPassword || !grade) {
+            if (!firstName || !lastName || !email || !password || !confirmPassword || !degree) {
                 setError('Please fill in all fields');
                 scrollToTop();
                 setLoading(false);
@@ -61,8 +61,8 @@ export default function StudentRegister() {
                 return;
             }
 
-            // Simulate student registration API call
-            const response = await fetch('/api/student/register', {
+            // Simulate instructor registration API call
+            const response = await fetch('/api/instructor/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ export default function StudentRegister() {
                     lastName,
                     email,
                     password,
-                    grade,
+                    degree,
                 }),
             });
 
@@ -83,14 +83,14 @@ export default function StudentRegister() {
 
             const data = await response.json();
 
-            // Store auth token and student info in localStorage
+            // Store auth token and instructor info in localStorage
             localStorage.setItem('authToken', data.token);
-            localStorage.setItem('userType', 'student');
-            localStorage.setItem('studentId', data.studentId);
-            localStorage.setItem('studentName', `${firstName} ${lastName}`);
+            localStorage.setItem('userType', 'instructor');
+            localStorage.setItem('instructorId', data.instructorId);
+            localStorage.setItem('instructorName', `${firstName} ${lastName}`);
 
-            // Redirect to student dashboard
-            navigate('/student/dashboard');
+            // Redirect to instructor dashboard
+            navigate('/instructor/dashboard');
         } catch (err) {
             setError(err.message || 'An error occurred during registration');
             scrollToTop();
@@ -107,8 +107,8 @@ export default function StudentRegister() {
                     <Card className="shadow-lg">
                         <Card.Body className="p-5">
                             <div className="text-center mb-5">
-                                <h2 className="mb-2">Student Registration</h2>
-                                <p className="text-muted">Create your learning account</p>
+                                <h2 className="mb-2">Instructor Registration</h2>
+                                <p className="text-muted">Create your teaching account</p>
                             </div>
 
                             {error && (
@@ -155,19 +155,15 @@ export default function StudentRegister() {
                                 </Form.Group>
 
                                 <Form.Group className="mb-3">
-                                    <Form.Label className="fw-bold">Grade Level</Form.Label>
-                                    <Form.Select
-                                        value={grade}
-                                        onChange={(e) => setGrade(e.target.value)}
+                                    <Form.Label className="fw-bold">Degree</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="Enter your degree"
+                                        value={degree}
+                                        onChange={(e) => setDegree(e.target.value)}
                                         disabled={loading}
                                         size="lg"
-                                    >
-                                        <option value="">Select your grade</option>
-                                        <option value="9">9th Grade</option>
-                                        <option value="10">10th Grade</option>
-                                        <option value="11">11th Grade</option>
-                                        <option value="12">12th Grade</option>
-                                    </Form.Select>
+                                    />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3">
@@ -198,7 +194,7 @@ export default function StudentRegister() {
                                 </Form.Group>
 
                                 <Button
-                                    variant="primary"
+                                    variant="success"
                                     type="submit"
                                     className="w-100 py-2 fw-bold"
                                     disabled={loading}
@@ -211,13 +207,13 @@ export default function StudentRegister() {
                             <div className="text-center mt-4">
                                 <p className="text-muted mb-3">
                                     Already have an account?{' '}
-                                    <Link to="/student/login" className="text-decoration-none">
+                                    <Link to="/instructor/login" className="text-decoration-none">
                                         Login here
                                     </Link>
                                 </p>
                                 <p className="text-muted">
-                                    <Link to="/student" className="text-decoration-none small">
-                                        ← Back to student options
+                                    <Link to="/instructor" className="text-decoration-none small">
+                                        ← Back to instructor options
                                     </Link>
                                 </p>
                             </div>
