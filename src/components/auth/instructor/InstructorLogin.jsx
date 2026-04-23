@@ -3,11 +3,8 @@ import { Container, Row, Col, Card, Button, Form, Alert } from 'react-bootstrap'
 import { useNavigate, Link } from 'react-router-dom';
 
 export default function InstructorLogin() {
-    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [degree, setDegree] = useState('');
     const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -28,7 +25,7 @@ export default function InstructorLogin() {
 
         try {
             // Validate form
-            if (!name || !email || !degree || !password || !confirmPassword) {
+            if (!email || !password) {
                 setError('Please fill in all fields');
                 scrollToTop();
                 setLoading(false);
@@ -44,49 +41,42 @@ export default function InstructorLogin() {
                 return;
             }
 
-            // Password validation
-            if (password.length < 6) {
-                setError('Password must be at least 6 characters');
-                scrollToTop();
-                setLoading(false);
-                return;
-            }
-
-            // Password match validation
-            if (password !== confirmPassword) {
-                setError('Passwords do not match');
-                scrollToTop();
-                setLoading(false);
-                return;
-            }
-
+            // TODO - UNCOMMNENT ONCE API IS READY
             // Simulate instructor login API call
-            const response = await fetch('/api/instructor/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    name,
-                    email,
-                    degree,
-                    password,
-                }),
-            });
+            // const response = await fetch('mysql-production-a164.up.railway.app/instructors', {
+            //     method: 'POST',
+            //     headers: { 
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify({
+            //         name,
+            //         email,
+            //         degree,
+            //         password,
+            //     }),
+            // });
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Login failed. Please check your credentials.');
+            // if (!response.ok) {
+            //     const errorData = await response.json();
+            //     throw new Error(errorData.message || 'Login failed. Please check your credentials.');
+            // }
+
+            // const data = await response.json();
+
+            // // Store auth token and instructor info in localStorage
+            // localStorage.setItem('authToken', data.token);
+            // localStorage.setItem('userType', 'instructor');
+            // localStorage.setItem('instructorId', data.instructorId);
+            // localStorage.setItem('instructorName', data.name);
+
+            if (email === 'test@email.com' && password === 'password') {
+                localStorage.setItem('authToken', 'fake-jwt-token');
+                localStorage.setItem('userType', 'instructor');
+                localStorage.setItem('instructorId', '123');
+                localStorage.setItem('instructorName', 'Test Instructor');
+            } else {
+                throw new Error('Login failed. Please check your credentials.');
             }
-
-            const data = await response.json();
-
-            // Store auth token and instructor info in localStorage
-            localStorage.setItem('authToken', data.token);
-            localStorage.setItem('userType', 'instructor');
-            localStorage.setItem('instructorId', data.instructorId);
-            localStorage.setItem('instructorName', data.name);
-
             // Redirect to instructor dashboard
             navigate('/instructor/dashboard');
         } catch (err) {
