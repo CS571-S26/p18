@@ -83,17 +83,17 @@ export default function InstructorStudents() {
 
     const renderStudentList = (title, list) => (
         <>
-            <h5 className="mt-3">{title}</h5>
-            {list.map(student => (
+            <h6 className="text-uppercase text-muted small fw-bold mt-4 mb-2">{title}</h6>
+            {list.map((student) => (
                 <Card
                     key={student.id}
-                    className={`mb-2 ${selectedStudent.id === student.id ? 'border-primary' : ''}`}
+                    className={`mb-2 border-0 shadow-sm ${selectedStudent.id === student.id ? 'aria-chat-thread-active' : ''}`}
                     style={{ cursor: 'pointer' }}
                     onClick={() => setSelectedStudent(student)}
                 >
-                    <Card.Body>
-                        <Card.Title>{student.name}</Card.Title>
-                        <Card.Text>{student.preview}</Card.Text>
+                    <Card.Body className="py-3">
+                        <Card.Title className="h6 mb-1">{student.name}</Card.Title>
+                        <Card.Text className="small text-muted mb-0">{student.preview}</Card.Text>
                     </Card.Body>
                 </Card>
             ))}
@@ -103,18 +103,19 @@ export default function InstructorStudents() {
     const currentCurriculum = curriculum[selectedStudent.id] || [];
 
     return (
-        <Container fluid className="vh-100">
-            <Row className="h-100">
-                <Col md={4} className="border-end overflow-auto">
-                    <h4 className="mt-3">Students</h4>
-                    {renderStudentList('Active Students', students.active)}
-                    {renderStudentList('Prospective Students', students.prospective)}
+        <Container fluid className="px-0" style={{ minHeight: 'calc(100vh - 4rem)' }}>
+            <Row className="g-0" style={{ minHeight: 'calc(100vh - 4rem)' }}>
+                <Col md={4} lg={3} className="border-end overflow-auto py-3 px-3 aria-instructor-panel">
+                    <h4 className="mb-2 text-success">Students</h4>
+                    <p className="small text-muted mb-0">Select a student to view contact info, notes, and lesson plan.</p>
+                    {renderStudentList('Active students', students.active)}
+                    {renderStudentList('Prospective', students.prospective)}
                 </Col>
 
-                <Col md={8} className="p-4 overflow-auto">
-                    <h3>{selectedStudent.name}</h3>
+                <Col md={8} lg={9} className="p-4 overflow-auto aria-chat-main">
+                    <h3 className="text-primary">{selectedStudent.name}</h3>
 
-                    <Card className="mb-3">
+                    <Card className="mb-3 aria-card-nested">
                         <Card.Body>
                             <Card.Title>Contact Info</Card.Title>
                             <p><strong>Email:</strong> {selectedStudent.email}</p>
@@ -122,7 +123,7 @@ export default function InstructorStudents() {
                         </Card.Body>
                     </Card>
 
-                    <Card className="mb-3">
+                    <Card className="mb-3 aria-card-nested">
                         <Card.Body>
                             <Card.Title>Progress Notes</Card.Title>
                             <Form.Control
@@ -135,7 +136,7 @@ export default function InstructorStudents() {
                         </Card.Body>
                     </Card>
 
-                    <Card className="mb-3">
+                    <Card className="mb-3 aria-card-nested">
                         <Card.Body>
                             <Card.Title>Lesson Plan</Card.Title>
                             <ListGroup className="mb-2">
@@ -179,7 +180,7 @@ export default function InstructorStudents() {
                         </Card.Body>
                     </Card>
 
-                    <Card>
+                    <Card className="aria-card-nested">
                         <Card.Body>
                             <Card.Title>Practice Materials</Card.Title>
                             <Form.Group className="mb-2">

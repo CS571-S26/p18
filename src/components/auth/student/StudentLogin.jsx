@@ -41,40 +41,24 @@ export default function StudentLogin() {
                 return;
             }
 
-            // Validate password length
-            if (password.length < 6) {
-                setError('Password must be at least 6 characters');
-                scrollToTop();
-                setLoading(false);
-                return;
+            // TODO - UNCOMMENT ONCE API IS READY
+            // const response = await fetch('...', { ... });
+            // if (!response.ok) { ... }
+            // const data = await response.json();
+            // localStorage.setItem('authToken', data.token);
+            // localStorage.setItem('userType', 'student');
+            // localStorage.setItem('studentId', data.studentId);
+            // localStorage.setItem('studentName', data.name);
+
+            if (email === 'test@email.com' && password === 'password') {
+                localStorage.setItem('authToken', 'fake-jwt-token');
+                localStorage.setItem('userType', 'student');
+                localStorage.setItem('studentId', '456');
+                localStorage.setItem('studentName', 'Test Student');
+            } else {
+                throw new Error('Login failed. Please check your credentials.');
             }
 
-            // Simulate student login API call
-            const response = await fetch('/api/student/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email,
-                    password,
-                }),
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Login failed. Please check your credentials.');
-            }
-
-            const data = await response.json();
-
-            // Store auth token and student info in localStorage
-            localStorage.setItem('authToken', data.token);
-            localStorage.setItem('userType', 'student');
-            localStorage.setItem('studentId', data.studentId);
-            localStorage.setItem('studentName', data.name);
-
-            // Redirect to student dashboard
             navigate('/student/dashboard');
         } catch (err) {
             setError(err.message || 'An error occurred during login');
@@ -85,14 +69,13 @@ export default function StudentLogin() {
     };
 
     return (
-        <Container className="d-flex justify-content-center align-items-center"
-                   style={{ minHeight: '100vh', paddingTop: '2rem' }}>
+        <Container className="aria-page-frame" style={{ paddingTop: '2rem' }}>
             <Row className="w-100">
                 <Col md={8} lg={6} className="mx-auto">
-                    <Card className="shadow-lg">
+                    <Card className="aria-card-elevated">
                         <Card.Body className="p-5">
                             <div className="text-center mb-5">
-                                <h2 className="mb-2">Student Login</h2>
+                                <h2 className="mb-2 text-primary">Student Login</h2>
                                 <p className="text-muted">Access your learning dashboard</p>
                             </div>
 
@@ -133,7 +116,7 @@ export default function StudentLogin() {
                                 <Button
                                     variant="primary"
                                     type="submit"
-                                    className="w-100 py-2 fw-bold"
+                                    className="w-100 py-2 fw-bold rounded-3"
                                     disabled={loading}
                                     size="lg"
                                 >

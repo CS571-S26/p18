@@ -34,18 +34,18 @@ export default function InstructorAccount() {
     };
 
     return (
-        <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
+        <Container className="aria-page-frame">
             <Row className="w-100">
                 <Col md={10} lg={8} className="mx-auto">
-                    <Card className="shadow-lg">
+                    <Card className="aria-card-elevated">
                         <Card.Body className="p-5">
                             <div className="text-center mb-4">
-                                <h2>Instructor Account</h2>
+                                <h2 className="text-primary">Instructor Account</h2>
                                 <p className="text-muted">Manage your profile information</p>
                             </div>
 
                             {message && (
-                                <Alert variant="success" className="mb-4">
+                                <Alert variant="info" className="mb-4">
                                     {message}
                                 </Alert>
                             )}
@@ -57,7 +57,7 @@ export default function InstructorAccount() {
                                             <img
                                                 src={formData.headshot}
                                                 alt="Headshot"
-                                                className="rounded-circle"
+                                                className="rounded-circle border border-2 border-success"
                                                 style={{ width: '150px', height: '150px', objectFit: 'cover' }}
                                             />
                                         </div>
@@ -86,7 +86,7 @@ export default function InstructorAccount() {
                                                     placeholder="Enter your name"
                                                 />
                                             ) : (
-                                                <p className="form-control-plaintext border p-2 rounded">{formData.name}</p>
+                                                <p className="form-control-plaintext aria-field-plain mb-0">{formData.name}</p>
                                             )}
                                         </Form.Group>
 
@@ -101,7 +101,7 @@ export default function InstructorAccount() {
                                                     placeholder="Enter your degree"
                                                 />
                                             ) : (
-                                                <p className="form-control-plaintext border p-2 rounded">{formData.degree}</p>
+                                                <p className="form-control-plaintext aria-field-plain mb-0">{formData.degree}</p>
                                             )}
                                         </Form.Group>
 
@@ -116,7 +116,7 @@ export default function InstructorAccount() {
                                                     placeholder="Enter your email"
                                                 />
                                             ) : (
-                                                <p className="form-control-plaintext border p-2 rounded">{formData.email}</p>
+                                                <p className="form-control-plaintext aria-field-plain mb-0">{formData.email}</p>
                                             )}
                                         </Form.Group>
 
@@ -132,7 +132,7 @@ export default function InstructorAccount() {
                                                     placeholder="Enter your bio"
                                                 />
                                             ) : (
-                                                <p className="form-control-plaintext border p-2 rounded" style={{ minHeight: '100px' }}>{formData.bio}</p>
+                                                <p className="form-control-plaintext aria-field-plain mb-0" style={{ minHeight: '100px' }}>{formData.bio}</p>
                                             )}
                                         </Form.Group>
                                     </Col>
@@ -140,11 +140,11 @@ export default function InstructorAccount() {
 
                                 <div className="text-center">
                                     {!isEditing ? (
-                                        <Button variant="primary" onClick={handleEdit}>
+                                        <Button variant="primary" className="rounded-3 px-4" onClick={handleEdit}>
                                             Edit Profile
                                         </Button>
                                     ) : (
-                                        <Button variant="success" onClick={handleConfirm}>
+                                        <Button variant="success" className="rounded-3 px-4" onClick={handleConfirm}>
                                             Confirm Changes
                                         </Button>
                                     )}

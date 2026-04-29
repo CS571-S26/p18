@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/nav/Navbar'
 import Home from './components/content/Home'
@@ -17,7 +16,9 @@ import StudentDashboard from './components/content/student/StudentDashbaord'
 import StudentAccount from './components/content/student/StudentAccount'
 import StudentChat from './components/content/student/StudentChat'
 import StudentDiscover from './components/content/student/StudentDiscover'
+import StudentViewInstructor from './components/content/student/StudentViewInstructor'
 import StudentLessonMaterials from './components/content/student/StudentLessonMaterials'
+import About from './components/content/About'
 
 
 export default function App() 
@@ -27,7 +28,7 @@ export default function App()
         <>
         {/* NavBar */}
         <Navbar/>
-        <div style={{ paddingTop: '1rem' }}>
+        <div className="aria-app-shell" style={{ paddingTop: '1rem' }}>
             <Routes>
                 <Route path="/" element={<Home/>} />
                 <Route path="/student" element={<Student />} />
@@ -44,8 +45,9 @@ export default function App()
                 <Route path="/student/account" element={<StudentAccount />} />
                 <Route path="/student/chat" element={<StudentChat />} />
                 <Route path="/student/discover" element={<StudentDiscover />} />
+                <Route path="/student/instructor/:id" element={<StudentViewInstructor />} />
                 <Route path="/student/lessonmaterials" element={<StudentLessonMaterials />} />
-                <Route path="/about" element={<h1>About</h1>} />
+                <Route path="/about" element={<About />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </div>

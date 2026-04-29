@@ -100,14 +100,13 @@ export default function InstructorRegister() {
     };
 
     return (
-        <Container className="d-flex justify-content-center align-items-center"
-                   style={{ minHeight: '100vh', paddingTop: '2rem' }}>
+        <Container className="aria-page-frame" style={{ paddingTop: '2rem' }}>
             <Row className="w-100">
                 <Col md={8} lg={6} className="mx-auto">
-                    <Card className="shadow-lg">
+                    <Card className="aria-card-elevated">
                         <Card.Body className="p-5">
                             <div className="text-center mb-5">
-                                <h2 className="mb-2">Instructor Registration</h2>
+                                <h2 className="mb-2 text-primary">Instructor Registration</h2>
                                 <p className="text-muted">Create your teaching account</p>
                             </div>
 
@@ -196,7 +195,7 @@ export default function InstructorRegister() {
                                 <Button
                                     variant="success"
                                     type="submit"
-                                    className="w-100 py-2 fw-bold"
+                                    className="w-100 py-2 fw-bold rounded-3"
                                     disabled={loading}
                                     size="lg"
                                 >
