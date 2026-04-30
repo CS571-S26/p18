@@ -11,7 +11,7 @@ export default function ManagePayment() {
                     <Card className="aria-card-elevated text-center">
                         <Card.Body className="p-5">
                             <h1 className="h3 text-primary mb-3">Payments</h1>
-                            <p className="text-muted mb-4">Direct deposit and payout history will appear here.</p>
+                            <p className="aria-supporting-text mb-4">Direct deposit and payout history will appear here.</p>
                             <Button as={Link} to="/instructor/dashboard" variant="primary" className="rounded-3">
                                 Back to dashboard
                             </Button>

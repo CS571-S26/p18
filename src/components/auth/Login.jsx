@@ -9,37 +9,37 @@ export default function Login() {
                     <Card className="aria-card-elevated">
                         <Card.Body className="text-center p-5">
                             <h1 className="mb-3 text-primary">Login</h1>
-                            <p className="text-muted mb-4">
-                                Select your account type to continue
-                            </p>
+                            <p className="aria-supporting-text mb-4">Select your account type to continue</p>
                             <Row className="g-3">
                                 <Col sm={6}>
-                                    <Link to="/student/login" className="text-decoration-none">
-                                        <Button
-                                            variant="primary"
-                                            size="lg"
-                                            className="w-100 py-3 rounded-3"
-                                        >
-                                            Student Login
-                                        </Button>
-                                    </Link>
+                                    <Button
+                                        as={Link}
+                                        to="/student/login"
+                                        variant="primary"
+                                        size="lg"
+                                        className="w-100 py-3 rounded-3"
+                                    >
+                                        Student login
+                                    </Button>
                                 </Col>
                                 <Col sm={6}>
-                                    <Link to="/instructor/login" className="text-decoration-none">
-                                        <Button
-                                            variant="outline-primary"
-                                            size="lg"
-                                            className="w-100 py-3 rounded-3"
-                                        >
-                                            Instructor Login
-                                        </Button>
-                                    </Link>
+                                    <Button
+                                        as={Link}
+                                        to="/instructor/login"
+                                        variant="outline-primary"
+                                        size="lg"
+                                        className="w-100 py-3 rounded-3"
+                                    >
+                                        Instructor login
+                                    </Button>
                                 </Col>
                             </Row>
                             <div className="mt-4">
-                                <p className="text-muted">
-                                    Don't have an account?{' '}
-                                    <Link to="/register" className="text-decoration-none">Register here</Link>
+                                <p className="aria-supporting-text">
+                                    Don&apos;t have an account?{' '}
+                                    <Link to="/register" className="text-decoration-none">
+                                        Register here
+                                    </Link>
                                 </p>
                             </div>
                         </Card.Body>

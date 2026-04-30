@@ -12,14 +12,15 @@ export default function NotFound() {
                 <p className="error-description">
                     Sorry, the page you're looking for doesn't exist or has been moved.
                 </p>
-                <div className="error-icon">
+                <div className="error-icon" aria-hidden="true">
                     <span>🔍</span>
                 </div>
-                <button 
+                <button
+                    type="button"
                     className="btn btn-primary go-home-btn"
                     onClick={() => navigate('/')}
                 >
-                    Go Home
+                    Go home
                 </button>
             </div>
         </div>

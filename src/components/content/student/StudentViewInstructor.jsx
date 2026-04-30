@@ -15,9 +15,11 @@ function StarRating({ value }) {
         );
     }
     return (
-        <span className="d-inline-flex align-items-center flex-wrap" aria-label={`${value} out of 5 stars`}>
-            {stars}
-            <span className="text-muted ms-2">{value.toFixed(1)} / 5</span>
+        <span className="d-inline-flex align-items-center flex-wrap" aria-label={`${value.toFixed(1)} out of 5 stars`}>
+            <span aria-hidden="true" className="d-inline-flex align-items-center">
+                {stars}
+                <span className="aria-supporting-text ms-2">{value.toFixed(1)} / 5</span>
+            </span>
         </span>
     );
 }
@@ -32,8 +34,8 @@ export default function StudentViewInstructor() {
                 <Row className="justify-content-center">
                     <Col md={8} lg={6} className="text-center">
                         <h1 className="h3 mb-3 text-primary">Instructor not found</h1>
-                        <p className="text-muted mb-4">That profile may have been removed or the link is incorrect.</p>
-                        <Button as={Link} to="/student/discover" variant="primary">
+                        <p className="aria-supporting-text mb-4">That profile may have been removed or the link is incorrect.</p>
+                        <Button as={Link} to="/student/discover" variant="primary" type="button">
                             Back to Discover
                         </Button>
                     </Col>
@@ -46,7 +48,7 @@ export default function StudentViewInstructor() {
         <Container className="aria-page-content py-4" style={{ minHeight: '75vh' }}>
             <Row className="justify-content-center mb-3">
                 <Col lg={10}>
-                    <Button as={Link} to="/student/discover" variant="outline-primary" size="sm" className="mb-3 rounded-3">
+                    <Button as={Link} to="/student/discover" variant="outline-primary" size="sm" className="mb-3 rounded-3" type="button">
                         ← Discover instructors
                     </Button>
                 </Col>
@@ -69,7 +71,7 @@ export default function StudentViewInstructor() {
                             <Col md={7} lg={8}>
                                 <Card.Body className="p-4 p-lg-5">
                                     <h1 className="h2 mb-2 text-primary">{instructor.name}</h1>
-                                    <p className="text-muted mb-3">{instructor.degreeLevel}</p>
+                                    <p className="aria-supporting-text mb-3">{instructor.degreeLevel}</p>
                                     <div className="d-flex flex-wrap gap-2 align-items-center mb-3">
                                         <Badge bg="primary">{instructor.instrument}</Badge>
                                         <Badge bg="secondary">Age {instructor.age}</Badge>
@@ -78,7 +80,7 @@ export default function StudentViewInstructor() {
                                         <StarRating value={instructor.rating} />
                                     </div>
                                     <h2 className="h5 mb-2">About</h2>
-                                    <p className="text-muted mb-4">{instructor.longBio}</p>
+                                    <p className="text-body mb-4">{instructor.longBio}</p>
                                     <div className="d-flex flex-wrap gap-2">
                                         <Button
                                             as={Link}
@@ -90,10 +92,11 @@ export default function StudentViewInstructor() {
                                             variant="primary"
                                             size="lg"
                                             className="rounded-3"
+                                            type="button"
                                         >
                                             Start a chat with {instructor.name.split(' ')[0]}
                                         </Button>
-                                        <Button as={Link} to="/student/dashboard" variant="outline-primary" size="lg" className="rounded-3">
+                                        <Button as={Link} to="/student/dashboard" variant="outline-primary" size="lg" className="rounded-3" type="button">
                                             Student dashboard
                                         </Button>
                                     </div>
@@ -104,7 +107,7 @@ export default function StudentViewInstructor() {
 
                     <Card className="mt-4 aria-card-nested">
                         <Card.Body className="p-4">
-                            <h2 className="h6 text-uppercase text-muted mb-2">At a glance</h2>
+                            <h2 className="h6 text-uppercase aria-supporting-text mb-2">At a glance</h2>
                             <p className="mb-0">{instructor.shortBio}</p>
                         </Card.Body>
                     </Card>

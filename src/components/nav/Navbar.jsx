@@ -28,7 +28,7 @@ export default function NavBar() {
                 <Navbar.Brand as={Link} to="/" className="brand-section">
                     <img
                         src={logo}
-                        alt="Logo"
+                        alt="Aria — return to home"
                         height="45"
                         className="d-inline-block align-text-top me-3 logo-image"
                     />
@@ -55,15 +55,11 @@ export default function NavBar() {
                                     Account
                                 </Nav.Link>
 
-                                <span className="ms-3 me-2">
+                                <span className="ms-3 me-2" aria-live="polite">
                                     Hello, {instructorName || 'Instructor'}
                                 </span>
 
-                                <Button
-                                    variant="outline-danger"
-                                    size="sm"
-                                    onClick={handleLogout}
-                                >
+                                <Button type="button" variant="outline-danger" size="sm" onClick={handleLogout}>
                                     Logout
                                 </Button>
                             </>
@@ -85,15 +81,11 @@ export default function NavBar() {
                                     Account
                                 </Nav.Link>
 
-                                <span className="ms-3 me-2">
+                                <span className="ms-3 me-2" aria-live="polite">
                                     Hello, {studentName || 'Student'}
                                 </span>
 
-                                <Button
-                                    variant="outline-danger"
-                                    size="sm"
-                                    onClick={handleLogout}
-                                >
+                                <Button type="button" variant="outline-danger" size="sm" onClick={handleLogout}>
                                     Logout
                                 </Button>
                             </>

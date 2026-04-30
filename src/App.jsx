@@ -28,7 +28,7 @@ export default function App()
         <>
         {/* NavBar */}
         <Navbar/>
-        <div className="aria-app-shell" style={{ paddingTop: '1rem' }}>
+        <main className="aria-app-shell" style={{ paddingTop: '1rem' }}>
             <Routes>
                 <Route path="/" element={<Home/>} />
                 <Route path="/student" element={<Student />} />
@@ -50,7 +50,7 @@ export default function App()
                 <Route path="/about" element={<About />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
-        </div>
+        </main>
         </>
         
     )

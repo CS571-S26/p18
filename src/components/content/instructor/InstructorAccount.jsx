@@ -1,22 +1,25 @@
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { Container, Row, Col, Card, Button, Form, Alert } from 'react-bootstrap';
 
 export default function InstructorAccount() {
+    const id = useId();
+    const field = (name) => `${id}-${name}`;
+
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({
         name: 'John Doe',
         degree: 'PhD in Music Education: Senior',
         email: 'john.doe@example.com',
         bio: 'Has had over 10 students, multiple of whom have gone to music school.',
-        headshot: 'https://via.placeholder.com/150' // Placeholder image URL
+        headshot: 'https://via.placeholder.com/150',
     });
     const [message, setMessage] = useState('');
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prev => ({
+        setFormData((prev) => ({
             ...prev,
-            [name]: value
+            [name]: value,
         }));
     };
 
@@ -26,10 +29,8 @@ export default function InstructorAccount() {
     };
 
     const handleConfirm = () => {
-        // TODO: Implement API call to save changes
         setIsEditing(false);
         setMessage('Changes saved successfully!');
-        // Clear message after 3 seconds
         setTimeout(() => setMessage(''), 3000);
     };
 
@@ -40,12 +41,12 @@ export default function InstructorAccount() {
                     <Card className="aria-card-elevated">
                         <Card.Body className="p-5">
                             <div className="text-center mb-4">
-                                <h2 className="text-primary">Instructor Account</h2>
-                                <p className="text-muted">Manage your profile information</p>
+                                <h1 className="text-primary h2">Instructor account</h1>
+                                <p className="aria-supporting-text mb-0">Manage your profile information</p>
                             </div>
 
                             {message && (
-                                <Alert variant="info" className="mb-4">
+                                <Alert variant="info" className="mb-4" role="status" aria-live="polite">
                                     {message}
                                 </Alert>
                             )}
@@ -56,15 +57,16 @@ export default function InstructorAccount() {
                                         <div className="mb-3">
                                             <img
                                                 src={formData.headshot}
-                                                alt="Headshot"
+                                                alt={`Profile photo for ${formData.name}`}
                                                 className="rounded-circle border border-2 border-success"
                                                 style={{ width: '150px', height: '150px', objectFit: 'cover' }}
                                             />
                                         </div>
                                         {isEditing && (
                                             <Form.Group>
-                                                <Form.Label>Headshot URL</Form.Label>
+                                                <Form.Label htmlFor={field('headshot')}>Headshot URL</Form.Label>
                                                 <Form.Control
+                                                    id={field('headshot')}
                                                     type="url"
                                                     name="headshot"
                                                     value={formData.headshot}
@@ -76,9 +78,10 @@ export default function InstructorAccount() {
                                     </Col>
                                     <Col md={8}>
                                         <Form.Group className="mb-3">
-                                            <Form.Label>Name</Form.Label>
+                                            <Form.Label htmlFor={field('name')}>Name</Form.Label>
                                             {isEditing ? (
                                                 <Form.Control
+                                                    id={field('name')}
                                                     type="text"
                                                     name="name"
                                                     value={formData.name}
@@ -86,14 +89,17 @@ export default function InstructorAccount() {
                                                     placeholder="Enter your name"
                                                 />
                                             ) : (
-                                                <p className="form-control-plaintext aria-field-plain mb-0">{formData.name}</p>
+                                                <p className="form-control-plaintext aria-field-plain mb-0" id={field('name')}>
+                                                    {formData.name}
+                                                </p>
                                             )}
                                         </Form.Group>
 
                                         <Form.Group className="mb-3">
-                                            <Form.Label>Degree</Form.Label>
+                                            <Form.Label htmlFor={field('degree')}>Degree</Form.Label>
                                             {isEditing ? (
                                                 <Form.Control
+                                                    id={field('degree')}
                                                     type="text"
                                                     name="degree"
                                                     value={formData.degree}
@@ -101,14 +107,17 @@ export default function InstructorAccount() {
                                                     placeholder="Enter your degree"
                                                 />
                                             ) : (
-                                                <p className="form-control-plaintext aria-field-plain mb-0">{formData.degree}</p>
+                                                <p className="form-control-plaintext aria-field-plain mb-0" id={field('degree')}>
+                                                    {formData.degree}
+                                                </p>
                                             )}
                                         </Form.Group>
 
                                         <Form.Group className="mb-3">
-                                            <Form.Label>Email</Form.Label>
+                                            <Form.Label htmlFor={field('email')}>Email</Form.Label>
                                             {isEditing ? (
                                                 <Form.Control
+                                                    id={field('email')}
                                                     type="email"
                                                     name="email"
                                                     value={formData.email}
@@ -116,14 +125,17 @@ export default function InstructorAccount() {
                                                     placeholder="Enter your email"
                                                 />
                                             ) : (
-                                                <p className="form-control-plaintext aria-field-plain mb-0">{formData.email}</p>
+                                                <p className="form-control-plaintext aria-field-plain mb-0" id={field('email')}>
+                                                    {formData.email}
+                                                </p>
                                             )}
                                         </Form.Group>
 
                                         <Form.Group className="mb-3">
-                                            <Form.Label>Bio</Form.Label>
+                                            <Form.Label htmlFor={field('bio')}>Bio</Form.Label>
                                             {isEditing ? (
                                                 <Form.Control
+                                                    id={field('bio')}
                                                     as="textarea"
                                                     rows={4}
                                                     name="bio"
@@ -132,7 +144,13 @@ export default function InstructorAccount() {
                                                     placeholder="Enter your bio"
                                                 />
                                             ) : (
-                                                <p className="form-control-plaintext aria-field-plain mb-0" style={{ minHeight: '100px' }}>{formData.bio}</p>
+                                                <p
+                                                    className="form-control-plaintext aria-field-plain mb-0"
+                                                    id={field('bio')}
+                                                    style={{ minHeight: '100px' }}
+                                                >
+                                                    {formData.bio}
+                                                </p>
                                             )}
                                         </Form.Group>
                                     </Col>
@@ -140,12 +158,22 @@ export default function InstructorAccount() {
 
                                 <div className="text-center">
                                     {!isEditing ? (
-                                        <Button variant="primary" className="rounded-3 px-4" onClick={handleEdit}>
-                                            Edit Profile
+                                        <Button
+                                            type="button"
+                                            variant="primary"
+                                            className="rounded-3 px-4"
+                                            onClick={handleEdit}
+                                        >
+                                            Edit profile
                                         </Button>
                                     ) : (
-                                        <Button variant="success" className="rounded-3 px-4" onClick={handleConfirm}>
-                                            Confirm Changes
+                                        <Button
+                                            type="button"
+                                            variant="success"
+                                            className="rounded-3 px-4"
+                                            onClick={handleConfirm}
+                                        >
+                                            Confirm changes
                                         </Button>
                                     )}
                                 </div>

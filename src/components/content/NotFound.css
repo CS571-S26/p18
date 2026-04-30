@@ -3,13 +3,13 @@
     align-items: center;
     justify-content: center;
     min-height: calc(100vh - 80px);
-    background: linear-gradient(160deg, #e8f4fc 0%, #cfe8f8 40%, #b8daf2 100%);
+    background: #fff;
     padding: 2rem;
 }
 
 .not-found-content {
     text-align: center;
-    background: rgba(255, 255, 255, 0.95);
+    background: #fff;
     border-radius: 1rem;
     padding: 4rem 2rem;
     box-shadow: 0 0.5rem 1.75rem rgba(20, 60, 100, 0.12);
@@ -89,25 +89,6 @@
 
 .go-home-btn:active {
     transform: translateY(0);
-}
-
-@media (prefers-color-scheme: dark) {
-    .not-found-container {
-        background: linear-gradient(160deg, #1a2733 0%, #1e3040 100%);
-    }
-
-    .not-found-content {
-        background: rgba(30, 38, 53, 0.95);
-        border-color: rgba(13, 202, 240, 0.2);
-    }
-
-    .error-title {
-        color: #e8f4fc;
-    }
-
-    .error-description {
-        color: #9db0c4;
-    }
 }
 
 @media (max-width: 600px) {

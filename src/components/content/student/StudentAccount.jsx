@@ -1,9 +1,12 @@
 // Account information for students
 
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { Container, Row, Col, Card, Form, Button, Alert } from 'react-bootstrap';
 
 export default function StudentAccount() {
+    const id = useId();
+    const field = (name) => `${id}-${name}`;
+
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({
         name: typeof localStorage !== 'undefined' ? localStorage.getItem('studentName') || 'Test Student' : 'Test Student',
@@ -47,12 +50,12 @@ export default function StudentAccount() {
                     <Card className="aria-card-elevated">
                         <Card.Body className="p-5">
                             <div className="text-center mb-4">
-                                <h2 className="text-primary">Student account</h2>
-                                <p className="text-muted mb-0">Your profile and learning preferences</p>
+                                <h1 className="text-primary h2">Student account</h1>
+                                <p className="aria-supporting-text mb-0">Your profile and learning preferences</p>
                             </div>
 
                             {message && (
-                                <Alert variant="info" className="mb-4">
+                                <Alert variant="info" className="mb-4" role="status" aria-live="polite">
                                     {message}
                                 </Alert>
                             )}
@@ -63,15 +66,16 @@ export default function StudentAccount() {
                                         <div className="mb-3">
                                             <img
                                                 src={formData.avatarUrl}
-                                                alt="Your profile"
+                                                alt={`Profile photo for ${formData.name}`}
                                                 className="rounded-circle border border-2 border-info"
                                                 style={{ width: '150px', height: '150px', objectFit: 'cover' }}
                                             />
                                         </div>
                                         {isEditing && (
                                             <Form.Group>
-                                                <Form.Label>Profile photo URL</Form.Label>
+                                                <Form.Label htmlFor={field('avatarUrl')}>Profile photo URL</Form.Label>
                                                 <Form.Control
+                                                    id={field('avatarUrl')}
                                                     type="url"
                                                     name="avatarUrl"
                                                     value={formData.avatarUrl}
@@ -83,9 +87,10 @@ export default function StudentAccount() {
                                     </Col>
                                     <Col md={8}>
                                         <Form.Group className="mb-3">
-                                            <Form.Label>Student name</Form.Label>
+                                            <Form.Label htmlFor={field('name')}>Student name</Form.Label>
                                             {isEditing ? (
                                                 <Form.Control
+                                                    id={field('name')}
                                                     type="text"
                                                     name="name"
                                                     value={formData.name}
@@ -93,14 +98,17 @@ export default function StudentAccount() {
                                                     placeholder="Your name"
                                                 />
                                             ) : (
-                                                <p className="form-control-plaintext aria-field-plain mb-0">{formData.name}</p>
+                                                <p className="form-control-plaintext aria-field-plain mb-0" id={field('name')}>
+                                                    {formData.name}
+                                                </p>
                                             )}
                                         </Form.Group>
 
                                         <Form.Group className="mb-3">
-                                            <Form.Label>Email</Form.Label>
+                                            <Form.Label htmlFor={field('email')}>Email</Form.Label>
                                             {isEditing ? (
                                                 <Form.Control
+                                                    id={field('email')}
                                                     type="email"
                                                     name="email"
                                                     value={formData.email}
@@ -108,16 +116,19 @@ export default function StudentAccount() {
                                                     placeholder="Email"
                                                 />
                                             ) : (
-                                                <p className="form-control-plaintext aria-field-plain mb-0">{formData.email}</p>
+                                                <p className="form-control-plaintext aria-field-plain mb-0" id={field('email')}>
+                                                    {formData.email}
+                                                </p>
                                             )}
                                         </Form.Group>
 
                                         <Row>
                                             <Col md={6}>
                                                 <Form.Group className="mb-3">
-                                                    <Form.Label>Primary instrument</Form.Label>
+                                                    <Form.Label htmlFor={field('instrument')}>Primary instrument</Form.Label>
                                                     {isEditing ? (
                                                         <Form.Control
+                                                            id={field('instrument')}
                                                             type="text"
                                                             name="instrument"
                                                             value={formData.instrument}
@@ -125,15 +136,18 @@ export default function StudentAccount() {
                                                             placeholder="e.g. Violin"
                                                         />
                                                     ) : (
-                                                        <p className="form-control-plaintext aria-field-plain mb-0">{formData.instrument}</p>
+                                                        <p className="form-control-plaintext aria-field-plain mb-0" id={field('instrument')}>
+                                                            {formData.instrument}
+                                                        </p>
                                                     )}
                                                 </Form.Group>
                                             </Col>
                                             <Col md={6}>
                                                 <Form.Group className="mb-3">
-                                                    <Form.Label>Experience level</Form.Label>
+                                                    <Form.Label htmlFor={field('experienceLevel')}>Experience level</Form.Label>
                                                     {isEditing ? (
                                                         <Form.Select
+                                                            id={field('experienceLevel')}
                                                             name="experienceLevel"
                                                             value={formData.experienceLevel}
                                                             onChange={handleInputChange}
@@ -143,7 +157,7 @@ export default function StudentAccount() {
                                                             <option>Advanced</option>
                                                         </Form.Select>
                                                     ) : (
-                                                        <p className="form-control-plaintext aria-field-plain mb-0">
+                                                        <p className="form-control-plaintext aria-field-plain mb-0" id={field('experienceLevel')}>
                                                             {formData.experienceLevel}
                                                         </p>
                                                     )}
@@ -152,9 +166,10 @@ export default function StudentAccount() {
                                         </Row>
 
                                         <Form.Group className="mb-3">
-                                            <Form.Label>School grade (optional)</Form.Label>
+                                            <Form.Label htmlFor={field('gradeLevel')}>School grade (optional)</Form.Label>
                                             {isEditing ? (
                                                 <Form.Control
+                                                    id={field('gradeLevel')}
                                                     type="text"
                                                     name="gradeLevel"
                                                     value={formData.gradeLevel}
@@ -162,17 +177,20 @@ export default function StudentAccount() {
                                                     placeholder="e.g. 8th grade"
                                                 />
                                             ) : (
-                                                <p className="form-control-plaintext aria-field-plain mb-0">{formData.gradeLevel}</p>
+                                                <p className="form-control-plaintext aria-field-plain mb-0" id={field('gradeLevel')}>
+                                                    {formData.gradeLevel}
+                                                </p>
                                             )}
                                         </Form.Group>
 
                                         <hr className="my-4" />
-                                        <h6 className="text-muted text-uppercase small mb-3">Parent / guardian</h6>
+                                        <h2 className="h6 text-uppercase aria-supporting-text mb-3">Parent / guardian</h2>
 
                                         <Form.Group className="mb-3">
-                                            <Form.Label>Guardian name</Form.Label>
+                                            <Form.Label htmlFor={field('guardianName')}>Guardian name</Form.Label>
                                             {isEditing ? (
                                                 <Form.Control
+                                                    id={field('guardianName')}
                                                     type="text"
                                                     name="guardianName"
                                                     value={formData.guardianName}
@@ -180,14 +198,17 @@ export default function StudentAccount() {
                                                     placeholder="Name"
                                                 />
                                             ) : (
-                                                <p className="form-control-plaintext aria-field-plain mb-0">{formData.guardianName}</p>
+                                                <p className="form-control-plaintext aria-field-plain mb-0" id={field('guardianName')}>
+                                                    {formData.guardianName}
+                                                </p>
                                             )}
                                         </Form.Group>
 
                                         <Form.Group className="mb-3">
-                                            <Form.Label>Guardian email</Form.Label>
+                                            <Form.Label htmlFor={field('guardianEmail')}>Guardian email</Form.Label>
                                             {isEditing ? (
                                                 <Form.Control
+                                                    id={field('guardianEmail')}
                                                     type="email"
                                                     name="guardianEmail"
                                                     value={formData.guardianEmail}
@@ -200,9 +221,10 @@ export default function StudentAccount() {
                                         </Form.Group>
 
                                         <Form.Group className="mb-3">
-                                            <Form.Label>Learning goals</Form.Label>
+                                            <Form.Label htmlFor={field('goals')}>Learning goals</Form.Label>
                                             {isEditing ? (
                                                 <Form.Control
+                                                    id={field('goals')}
                                                     as="textarea"
                                                     rows={4}
                                                     name="goals"
@@ -211,7 +233,11 @@ export default function StudentAccount() {
                                                     placeholder="What do you want to achieve with lessons?"
                                                 />
                                             ) : (
-                                                <p className="form-control-plaintext aria-field-plain mb-0" style={{ minHeight: '100px' }}>
+                                                <p
+                                                    className="form-control-plaintext aria-field-plain mb-0"
+                                                    id={field('goals')}
+                                                    style={{ minHeight: '100px' }}
+                                                >
                                                     {formData.goals}
                                                 </p>
                                             )}
@@ -221,11 +247,11 @@ export default function StudentAccount() {
 
                                 <div className="text-center">
                                     {!isEditing ? (
-                                        <Button variant="primary" className="rounded-3 px-4" onClick={handleEdit}>
+                                        <Button variant="primary" className="rounded-3 px-4" type="button" onClick={handleEdit}>
                                             Edit profile
                                         </Button>
                                     ) : (
-                                        <Button variant="info" className="text-dark fw-semibold rounded-3 px-4" onClick={handleConfirm}>
+                                        <Button variant="info" className="text-dark fw-semibold rounded-3 px-4" type="button" onClick={handleConfirm}>
                                             Save changes
                                         </Button>
                                     )}

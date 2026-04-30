@@ -9,23 +9,25 @@ export default function Student() {
                     <Card className="aria-card-elevated">
                         <Card.Body className="text-center p-5">
                             <h1 className="mb-3 text-primary">Student</h1>
-                            <p className="text-muted mb-4">
-                                Sign in or register to be a student (or parent/guardian of a student).
+                            <p className="aria-supporting-text mb-4">
+                                Sign in or register to be a student (or parent or guardian of a student).
                             </p>
                             <Row className="g-3">
                                 <Col sm={6}>
-                                    <Link to="/student/login" className="text-decoration-none">
-                                        <Button variant="primary" size="lg" className="w-100 py-3 rounded-3">
-                                            Login
-                                        </Button>
-                                    </Link>
+                                    <Button as={Link} to="/student/login" variant="primary" size="lg" className="w-100 py-3 rounded-3">
+                                        Login
+                                    </Button>
                                 </Col>
                                 <Col sm={6}>
-                                    <Link to="/student/register" className="text-decoration-none">
-                                        <Button variant="outline-primary" size="lg" className="w-100 py-3 rounded-3">
-                                            Register
-                                        </Button>
-                                    </Link>
+                                    <Button
+                                        as={Link}
+                                        to="/student/register"
+                                        variant="outline-primary"
+                                        size="lg"
+                                        className="w-100 py-3 rounded-3"
+                                    >
+                                        Register
+                                    </Button>
                                 </Col>
                             </Row>
                         </Card.Body>

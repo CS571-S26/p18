@@ -11,7 +11,7 @@ export default function LessonPayment() {
                     <Card className="aria-card-elevated text-center">
                         <Card.Body className="p-5">
                             <h1 className="h3 text-primary mb-3">Lesson payment</h1>
-                            <p className="text-muted mb-4">Pay for upcoming lessons here once billing is connected.</p>
+                            <p className="aria-supporting-text mb-4">Pay for upcoming lessons here once billing is connected.</p>
                             <Button as={Link} to="/student/dashboard" variant="primary" className="rounded-3">
                                 Back to dashboard
                             </Button>

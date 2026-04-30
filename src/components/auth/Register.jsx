@@ -9,37 +9,37 @@ export default function Register() {
                     <Card className="aria-card-elevated">
                         <Card.Body className="text-center p-5">
                             <h1 className="mb-3 text-primary">Create Account</h1>
-                            <p className="text-muted mb-4">
-                                Select your account type to get started
-                            </p>
+                            <p className="aria-supporting-text mb-4">Select your account type to get started</p>
                             <Row className="g-3">
                                 <Col sm={6}>
-                                    <Link to="/student/register" className="text-decoration-none">
-                                        <Button
-                                            variant="primary"
-                                            size="lg"
-                                            className="w-100 py-3 rounded-3"
-                                        >
-                                            Register as Student
-                                        </Button>
-                                    </Link>
+                                    <Button
+                                        as={Link}
+                                        to="/student/register"
+                                        variant="primary"
+                                        size="lg"
+                                        className="w-100 py-3 rounded-3"
+                                    >
+                                        Register as student
+                                    </Button>
                                 </Col>
                                 <Col sm={6}>
-                                    <Link to="/instructor/register" className="text-decoration-none">
-                                        <Button
-                                            variant="outline-primary"
-                                            size="lg"
-                                            className="w-100 py-3 rounded-3"
-                                        >
-                                            Register as Instructor
-                                        </Button>
-                                    </Link>
+                                    <Button
+                                        as={Link}
+                                        to="/instructor/register"
+                                        variant="outline-primary"
+                                        size="lg"
+                                        className="w-100 py-3 rounded-3"
+                                    >
+                                        Register as instructor
+                                    </Button>
                                 </Col>
                             </Row>
                             <div className="mt-4">
-                                <p className="text-muted">
+                                <p className="aria-supporting-text">
                                     Already have an account?{' '}
-                                    <Link to="/login" className="text-decoration-none">Login here</Link>
+                                    <Link to="/login" className="text-decoration-none">
+                                        Login here
+                                    </Link>
                                 </p>
                             </div>
                         </Card.Body>

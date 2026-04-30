@@ -9,23 +9,29 @@ export default function Instructor() {
                     <Card className="aria-card-elevated">
                         <Card.Body className="text-center p-5">
                             <h1 className="mb-3 text-primary">Instructor</h1>
-                            <p className="text-muted mb-4">
-                                Sign in or register to be an instructor
-                            </p>
+                            <p className="aria-supporting-text mb-4">Sign in or register to be an instructor.</p>
                             <Row className="g-3">
                                 <Col sm={6}>
-                                    <Link to="/instructor/login" className="text-decoration-none">
-                                        <Button variant="primary" size="lg" className="w-100 py-3 rounded-3">
-                                            Login
-                                        </Button>
-                                    </Link>
+                                    <Button
+                                        as={Link}
+                                        to="/instructor/login"
+                                        variant="primary"
+                                        size="lg"
+                                        className="w-100 py-3 rounded-3"
+                                    >
+                                        Login
+                                    </Button>
                                 </Col>
                                 <Col sm={6}>
-                                    <Link to="/instructor/register" className="text-decoration-none">
-                                        <Button variant="outline-primary" size="lg" className="w-100 py-3 rounded-3">
-                                            Register
-                                        </Button>
-                                    </Link>
+                                    <Button
+                                        as={Link}
+                                        to="/instructor/register"
+                                        variant="outline-primary"
+                                        size="lg"
+                                        className="w-100 py-3 rounded-3"
+                                    >
+                                        Register
+                                    </Button>
                                 </Col>
                             </Row>
                         </Card.Body>

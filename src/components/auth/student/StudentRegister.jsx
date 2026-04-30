@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useId } from 'react';
 import { Container, Row, Col, Card, Button, Form, Alert } from 'react-bootstrap';
 import { useNavigate, Link } from 'react-router-dom';
 
@@ -13,6 +13,8 @@ export default function StudentRegister() {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const alertRef = useRef(null);
+    const id = useId();
+    const f = (name) => `${id}-${name}`;
 
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -106,21 +108,33 @@ export default function StudentRegister() {
                     <Card className="aria-card-elevated">
                         <Card.Body className="p-5">
                             <div className="text-center mb-5">
-                                <h2 className="mb-2 text-primary">Student Registration</h2>
-                                <p className="text-muted">Create your learning account</p>
+                                <h1 className="mb-2 text-primary h2">Student registration</h1>
+                                <p className="aria-supporting-text">Create your learning account</p>
                             </div>
 
                             {error && (
-                                <Alert ref={alertRef} variant="danger" dismissible onClose={() => setError('')} tabIndex="-1">
+                                <Alert
+                                    ref={alertRef}
+                                    variant="danger"
+                                    dismissible
+                                    onClose={() => setError('')}
+                                    tabIndex={-1}
+                                    role="alert"
+                                >
                                     {error}
                                 </Alert>
                             )}
 
                             <Form onSubmit={handleRegister}>
                                 <Form.Group className="mb-3">
-                                    <Form.Label className="fw-bold">First Name</Form.Label>
+                                    <Form.Label className="fw-bold" htmlFor={f('firstName')}>
+                                        First name
+                                    </Form.Label>
                                     <Form.Control
+                                        id={f('firstName')}
                                         type="text"
+                                        name="firstName"
+                                        autoComplete="given-name"
                                         placeholder="Enter your first name"
                                         value={firstName}
                                         onChange={(e) => setFirstName(e.target.value)}
@@ -130,9 +144,14 @@ export default function StudentRegister() {
                                 </Form.Group>
 
                                 <Form.Group className="mb-3">
-                                    <Form.Label className="fw-bold">Last Name</Form.Label>
+                                    <Form.Label className="fw-bold" htmlFor={f('lastName')}>
+                                        Last name
+                                    </Form.Label>
                                     <Form.Control
+                                        id={f('lastName')}
                                         type="text"
+                                        name="lastName"
+                                        autoComplete="family-name"
                                         placeholder="Enter your last name"
                                         value={lastName}
                                         onChange={(e) => setLastName(e.target.value)}
@@ -142,9 +161,14 @@ export default function StudentRegister() {
                                 </Form.Group>
 
                                 <Form.Group className="mb-3">
-                                    <Form.Label className="fw-bold">Email Address</Form.Label>
+                                    <Form.Label className="fw-bold" htmlFor={f('email')}>
+                                        Email address
+                                    </Form.Label>
                                     <Form.Control
+                                        id={f('email')}
                                         type="email"
+                                        name="email"
+                                        autoComplete="email"
                                         placeholder="Enter your email"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
@@ -154,8 +178,12 @@ export default function StudentRegister() {
                                 </Form.Group>
 
                                 <Form.Group className="mb-3">
-                                    <Form.Label className="fw-bold">Grade Level</Form.Label>
+                                    <Form.Label className="fw-bold" htmlFor={f('grade')}>
+                                        Grade level
+                                    </Form.Label>
                                     <Form.Select
+                                        id={f('grade')}
+                                        name="grade"
                                         value={grade}
                                         onChange={(e) => setGrade(e.target.value)}
                                         disabled={loading}
@@ -170,24 +198,32 @@ export default function StudentRegister() {
                                 </Form.Group>
 
                                 <Form.Group className="mb-3">
-                                    <Form.Label className="fw-bold">Password</Form.Label>
+                                    <Form.Label className="fw-bold" htmlFor={f('password')}>
+                                        Password
+                                    </Form.Label>
                                     <Form.Control
+                                        id={f('password')}
                                         type="password"
+                                        name="password"
+                                        autoComplete="new-password"
                                         placeholder="Enter your password"
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                         disabled={loading}
                                         size="lg"
                                     />
-                                    <Form.Text className="text-muted">
-                                        At least 6 characters
-                                    </Form.Text>
+                                    <Form.Text className="aria-supporting-text">At least 6 characters</Form.Text>
                                 </Form.Group>
 
                                 <Form.Group className="mb-4">
-                                    <Form.Label className="fw-bold">Confirm Password</Form.Label>
+                                    <Form.Label className="fw-bold" htmlFor={f('confirmPassword')}>
+                                        Confirm password
+                                    </Form.Label>
                                     <Form.Control
+                                        id={f('confirmPassword')}
                                         type="password"
+                                        name="confirmPassword"
+                                        autoComplete="new-password"
                                         placeholder="Confirm your password"
                                         value={confirmPassword}
                                         onChange={(e) => setConfirmPassword(e.target.value)}
@@ -208,13 +244,13 @@ export default function StudentRegister() {
                             </Form>
 
                             <div className="text-center mt-4">
-                                <p className="text-muted mb-3">
+                                <p className="aria-supporting-text mb-3">
                                     Already have an account?{' '}
                                     <Link to="/student/login" className="text-decoration-none">
                                         Login here
                                     </Link>
                                 </p>
-                                <p className="text-muted">
+                                <p className="aria-supporting-text">
                                     <Link to="/student" className="text-decoration-none small">
                                         ← Back to student options
                                     </Link>

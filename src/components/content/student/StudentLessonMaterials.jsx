@@ -1,6 +1,6 @@
 // Lesson materials shared by instructors
 
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { Container, Row, Col, Card, Button, Badge, Form } from 'react-bootstrap';
 
 const MATERIALS = [
@@ -53,6 +53,7 @@ const typeVariant = {
 };
 
 export default function StudentLessonMaterials() {
+    const searchId = useId();
     const [query, setQuery] = useState('');
 
     const filtered = MATERIALS.filter((m) => {
@@ -70,53 +71,66 @@ export default function StudentLessonMaterials() {
             <Row className="justify-content-center mb-4">
                 <Col lg={10}>
                     <h1 className="mb-2 text-primary">Lesson materials</h1>
-                    <p className="text-muted mb-4">
+                    <p className="aria-supporting-text mb-4">
                         Files and links your instructors have shared. (Demo data — hook to your API when ready.)
                     </p>
-                    <Form.Control
-                        className="shadow-sm"
-                        placeholder="Search by title, instructor, or topic…"
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
-                        aria-label="Search materials"
-                    />
+                    <Form.Group className="mb-0" controlId={searchId}>
+                        <Form.Label className="fw-semibold">Search materials</Form.Label>
+                        <Form.Control
+                            className="shadow-sm"
+                            type="search"
+                            placeholder="Search by title, instructor, or topic…"
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                            autoComplete="off"
+                        />
+                    </Form.Group>
                 </Col>
             </Row>
 
             <Row className="justify-content-center g-4">
                 <Col lg={10}>
-                    {filtered.length === 0 ? (
-                        <Card className="aria-card-nested">
-                            <Card.Body className="text-center text-muted py-5">No materials match that search.</Card.Body>
-                        </Card>
-                    ) : (
-                        filtered.map((item) => (
-                            <Card key={item.id} className="mb-3 aria-card-nested">
-                                <Card.Body className="p-4">
-                                    <Row className="align-items-center">
-                                        <Col md={8}>
-                                            <div className="d-flex flex-wrap align-items-center gap-2 mb-2">
-                                                <Card.Title className="h5 mb-0">{item.title}</Card.Title>
-                                                <Badge bg={typeVariant[item.type] || 'secondary'}>{item.type}</Badge>
-                                            </div>
-                                            <p className="text-muted small mb-2">
-                                                From <strong>{item.instructor}</strong> · Updated {item.updated}
-                                            </p>
-                                            <p className="mb-0">{item.description}</p>
-                                        </Col>
-                                        <Col md={4} className="mt-3 mt-md-0 text-md-end">
-                                            <Button variant="primary" className="me-2 mb-2 mb-md-0 rounded-3">
-                                                Open
-                                            </Button>
-                                            <Button variant="outline-primary" className="rounded-3">
-                                                Download
-                                            </Button>
-                                        </Col>
-                                    </Row>
+                    <section aria-labelledby="materials-list-heading">
+                        <h2 id="materials-list-heading" className="h5 mb-3">
+                            Your materials
+                        </h2>
+                        {filtered.length === 0 ? (
+                            <Card className="aria-card-nested">
+                                <Card.Body className="text-center aria-supporting-text py-5">
+                                    No materials match that search.
                                 </Card.Body>
                             </Card>
-                        ))
-                    )}
+                        ) : (
+                            filtered.map((item) => (
+                                <Card key={item.id} className="mb-3 aria-card-nested">
+                                    <Card.Body className="p-4">
+                                        <Row className="align-items-center">
+                                            <Col md={8}>
+                                                <div className="d-flex flex-wrap align-items-center gap-2 mb-2">
+                                                    <Card.Title as="h3" className="h5 mb-0">
+                                                        {item.title}
+                                                    </Card.Title>
+                                                    <Badge bg={typeVariant[item.type] || 'secondary'}>{item.type}</Badge>
+                                                </div>
+                                                <p className="aria-supporting-text small mb-2">
+                                                    From <strong>{item.instructor}</strong> · Updated {item.updated}
+                                                </p>
+                                                <p className="mb-0">{item.description}</p>
+                                            </Col>
+                                            <Col md={4} className="mt-3 mt-md-0 text-md-end">
+                                                <Button type="button" variant="primary" className="me-2 mb-2 mb-md-0 rounded-3">
+                                                    Open
+                                                </Button>
+                                                <Button type="button" variant="outline-primary" className="rounded-3">
+                                                    Download
+                                                </Button>
+                                            </Col>
+                                        </Row>
+                                    </Card.Body>
+                                </Card>
+                            ))
+                        )}
+                    </section>
                 </Col>
             </Row>
         </Container>

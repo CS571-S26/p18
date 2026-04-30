@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useId } from 'react';
 import { Container, Row, Col, Card, Button, Form, Alert } from 'react-bootstrap';
 import { useNavigate, Link } from 'react-router-dom';
 
@@ -9,6 +9,9 @@ export default function InstructorLogin() {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const alertRef = useRef(null);
+    const id = useId();
+    const emailId = `${id}-email`;
+    const passwordId = `${id}-password`;
 
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -94,36 +97,53 @@ export default function InstructorLogin() {
                     <Card className="aria-card-elevated">
                         <Card.Body className="p-5">
                             <div className="text-center mb-5">
-                                <h2 className="mb-2 text-primary">Instructor Login</h2>
-                                <p className="text-muted">Manage your lessons and students</p>
+                                <h1 className="mb-2 text-primary h2">Instructor login</h1>
+                                <p className="aria-supporting-text">Manage your lessons and students</p>
                             </div>
 
                             {error && (
-                                <Alert variant="danger" dismissible onClose={() => setError('')}>
+                                <Alert
+                                    ref={alertRef}
+                                    variant="danger"
+                                    dismissible
+                                    onClose={() => setError('')}
+                                    tabIndex={-1}
+                                    role="alert"
+                                >
                                     {error}
                                 </Alert>
                             )}
 
                             <Form onSubmit={handleLogin}>
                                 <Form.Group className="mb-3">
-                                    <Form.Label className="fw-bold">Email Address</Form.Label>
+                                    <Form.Label className="fw-bold" htmlFor={emailId}>
+                                        Email address
+                                    </Form.Label>
                                     <Form.Control
+                                        id={emailId}
                                         type="email"
+                                        name="email"
+                                        autoComplete="email"
                                         placeholder="Enter your email"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
                                         disabled={loading}
                                         size="lg"
                                     />
-                                    <Form.Text className="text-muted">
-                                        We'll never share your email with anyone else.
+                                    <Form.Text className="aria-supporting-text">
+                                        We will never share your email with anyone else.
                                     </Form.Text>
                                 </Form.Group>
 
                                 <Form.Group className="mb-4">
-                                    <Form.Label className="fw-bold">Password</Form.Label>
+                                    <Form.Label className="fw-bold" htmlFor={passwordId}>
+                                        Password
+                                    </Form.Label>
                                     <Form.Control
+                                        id={passwordId}
                                         type="password"
+                                        name="password"
+                                        autoComplete="current-password"
                                         placeholder="Enter your password"
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
@@ -144,13 +164,13 @@ export default function InstructorLogin() {
                             </Form>
 
                             <div className="text-center mt-4">
-                                <p className="text-muted mb-3">
-                                    Don't have an account?{' '}
+                                <p className="aria-supporting-text mb-3">
+                                    Don&apos;t have an account?{' '}
                                     <Link to="/instructor/register" className="text-decoration-none">
                                         Register as an instructor
                                     </Link>
                                 </p>
-                                <p className="text-muted">
+                                <p className="aria-supporting-text">
                                     <Link to="/instructor" className="text-decoration-none small">
                                         ← Back to instructor options
                                     </Link>

@@ -1,9 +1,9 @@
 .navbar-custom {
-    background: linear-gradient(180deg, #f0f7fc 0%, #f6f9fc 100%);
-    box-shadow: 0 2px 12px rgba(20, 60, 100, 0.08);
+    background: #fff;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
     padding: 0.75rem 0;
     transition: all 0.3s ease;
-    border-bottom: 1px solid #d6e8f4;
+    border-bottom: 1px solid #e8e8e8;
 }
 
 .navbar-custom:hover {
@@ -62,8 +62,8 @@
 }
 
 .nav-link-item:hover {
-    color: #0d4a6e !important;
-    background-color: rgba(13, 202, 240, 0.12);
+    color: #2c2c2c !important;
+    background-color: #f0f0f0;
     transform: translateY(-1px);
 }
 
@@ -87,7 +87,7 @@
     .nav-links {
         margin-top: 1rem;
         padding-top: 1rem;
-        border-top: 1px solid #d6e8f4;
+        border-top: 1px solid #e8e8e8;
     }
 
     .nav-link-item {
