@@ -72,7 +72,7 @@ export default function StudentLessonMaterials() {
                 <Col lg={10}>
                     <h1 className="mb-2 text-primary">Lesson materials</h1>
                     <p className="aria-supporting-text mb-4">
-                        Files and links your instructors have shared. (Demo data — hook to your API when ready.)
+                        Files and links your instructors have shared.
                     </p>
                     <Form.Group className="mb-0" controlId={searchId}>
                         <Form.Label className="fw-semibold">Search materials</Form.Label>
